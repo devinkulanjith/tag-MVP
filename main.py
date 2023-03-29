@@ -28,3 +28,8 @@ for tag in result:
         newTag = str(major)+"."+str(minor)+"."+str(patch+1)
 
     print(newTag)
+    confirmation = inquirer.list_input(f"Are you sure to release tag v{newTag}", choices=['yes', 'no'])
+    
+    if confirmation == 'yes':
+        print('release new tag  v', newTag)
+    
