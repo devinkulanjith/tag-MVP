@@ -31,5 +31,6 @@ for tag in result:
     confirmation = inquirer.list_input(f"Are you sure to release tag v{newTag}", choices=['yes', 'no'])
     
     if confirmation == 'yes':
+        # bashCommand = "git commit -m"$(echo -e "test\ntest")""
         print('release new tag  v', newTag)
     
