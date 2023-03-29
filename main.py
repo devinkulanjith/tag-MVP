@@ -33,4 +33,5 @@ for tag in result:
     if confirmation == 'yes':
         # bashCommand = "git commit -m"$(echo -e "test\ntest")""
         print('release new tag  v', newTag)
+        
     
