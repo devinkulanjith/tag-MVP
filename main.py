@@ -8,6 +8,8 @@ from pathlib import Path
 change = inquirer.list_input("type of change", choices=['major', 'minor', 'patch'])
 parentDirectory = Path(os.getcwd())
 
+bashCommandForGitAdd = "git add ."
+bashCommandForGitCommit = "git commit -m 'Add tag message to changelog'"
 bashCommand = "git tag --sort=committerdate | grep -E '[0-9]' | tail -1 | cut -b 2-7"
 pro = subprocess.Popen(bashCommand, stdout= subprocess.PIPE, shell=True)
 pro.wait()
@@ -54,7 +56,14 @@ for tag in result:
         with open("CHANGELOG.md", "w") as out_file:
                 out_file.write(dn)
                 out_file.close()
-
+        
+        pro = subprocess.Popen(bashCommandForGitAdd, stdout= True, shell=True)
+        pro.wait()
+        pro = subprocess.Popen(bashCommandForGitCommit, stdout= True, shell=True)
+        pro.wait()
+        obj = Repo(parentDirectory)
+        new_tag = obj.create_tag(f'v{newTag}', message=f'Version v{newTag}\n {message}')
+        obj.remotes.origin.push(new_tag)
 
     
 
