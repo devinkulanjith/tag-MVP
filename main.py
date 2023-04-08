@@ -57,9 +57,9 @@ for tag in result:
                 out_file.write(dn)
                 out_file.close()
         
-        pro = subprocess.Popen(bashCommandForGitAdd, stdout= True, shell=True)
+        pro = subprocess.Popen(bashCommandForGitAdd, stdout= False, shell=True)
         pro.wait()
-        pro = subprocess.Popen(bashCommandForGitCommit, stdout= True, shell=True)
+        pro = subprocess.Popen(bashCommandForGitCommit, stdout= False, shell=True)
         pro.wait()
         obj = Repo(parentDirectory)
         new_tag = obj.create_tag(f'v{newTag}', message=f'Version v{newTag}\n {message}')

@@ -5,6 +5,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### v1.3.6
+
+ >> app-A: 0.0.1
+ >> app-B: 0.1.1
+ >> app-C: 0.2.1
+ >> app-D: 0.3.1
+ >> app-E: 0.4.1
+
+
 ### v1.3.5
 
  >> app-A: 0.0.1
