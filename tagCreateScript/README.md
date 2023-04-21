@@ -5,9 +5,9 @@
 ### Pre Requirements for execution
 
 - Make sure python3 is installed in your computer
-- Make sure pip is installed in your computer
-- Install inquirer with `pip install inquirer`
-- Install git library for python with `pip install python-git`
+- Make sure pip or pip3 is installed in your computer
+- Install inquirer with `pip install inquirer` or `pip3 install inquirer`
+- Install git library for python with `pip install gitpython` or `pip3 install gitpython`
  
  ### For Execution
 

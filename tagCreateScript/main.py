@@ -10,7 +10,7 @@ BASH_COMMAND_FOR_GIT_COMMIT_CHANGELOG = "git commit -m 'Add tag message to chang
 BASH_COMMAND_FOR_GIT_LATEST_TAG = "git tag --sort=committerdate | grep -E '[0-9]' | tail -1 | cut -b 2-7"
 
 currentDirectory = Path(os.getcwd())
-parentDirectory = currentDirectory.resolve().parents[0]
+rootDirectory = currentDirectory.resolve().parents[0]
 
 change = inquirer.list_input("type of change", choices=['major', 'minor', 'patch'])
 
@@ -38,19 +38,19 @@ for tag in result:
 
     confirmation = inquirer.list_input(f"Are you sure to release tag v{newTag}", choices=['yes', 'no'])
     if confirmation == 'yes':
-        os.chdir(parentDirectory)
-        message = ''
+        os.chdir(rootDirectory)
+        message = '\n'
         with open("president_order.txt", "r") as in_file:
             lines = in_file.readlines()
             for x in lines:
                 appName = x.removesuffix('\n')
-                os.chdir(parentDirectory.joinpath(appName))
+                os.chdir(rootDirectory.joinpath(appName))
                 with open('manifest.json', encoding="utf-8") as f:
                     data = json.load(f)
                     version = data['version']
                     message = message + ' >> ' + appName + ':' + " " + version + "\n"
                 
-        os.chdir(parentDirectory)
+        os.chdir(rootDirectory)
         with open("CHANGELOG.md", "r") as in_file:
             line = in_file.read()
             dn = line.replace("## [Unreleased]", f"## [Unreleased]\n\n### v{newTag}\n\n{message}")
@@ -64,6 +64,6 @@ for tag in result:
         cmd.wait()
         cmd = subprocess.Popen(BASH_COMMAND_FOR_GIT_COMMIT_CHANGELOG, stdout= False, shell=True)
         cmd.wait()
-        obj = Repo(parentDirectory)
+        obj = Repo(rootDirectory)
         createdTag = obj.create_tag(f'v{newTag}', message=f'Version v{newTag}\n {message}')
         obj.remotes.origin.push(createdTag)
